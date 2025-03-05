@@ -1,0 +1,96 @@
+extract_context_task:
+  description: >
+    Extrair o contexto da solicitação do usuário com base no tópico {query} e no caminho do arquivo {file_path}.
+    Retornar com QUAL área CONDIZ:
+      - Se {file_path} for 'None' ou o conteúdo for 'None', o contexto não pode ser PDF e deve ser classificado apenas como "climate", "currency", "casual_chat" ou "no_agent_especialized".
+      - Se {file_path} não for 'None' e o conteúdo existir, o contexto será "pdf_analysis".
+    O contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized.
+    O contexto só é definido como no_agent_especialized se o query ({query}) não se encaixar em climate, currency, pdf_analysis ou casual_chat.
+  expected_output: >
+    Um JSON contendo a chave "context" com um dos valores citados.
+    Exemplo (manter sempre nesse EXATO formato):
+    { "context": "climate" }
+
+casual_chat_task:
+  description: >
+    Lidar com conversas gerais e casuais baseadas no {query}, como saudações, bate-papo informal e perguntas que não se encaixam em clima, cotações de moedas ou PDF.
+    - Se o contexto for "casual_chat": Retornar uma resposta amigável e natural, continuando a conversa de forma envolvente.
+    - Se o contexto for diferente: retornar "Não condiz com a área chat"
+  expected_output: >
+    Se o contexto for "casual_chat":
+      - Retornar uma resposta informal (NO MESMO IDIOMA DE: "{query}") que dê continuidade à conversa ou responda TODAS as perguntas do usuário.
+      - A resposta deve ser calorosa e focada no engajamento social, sem respostas do tipo "não especializado".
+      - Responder às perguntas do usuário de uma maneira conversacional. Garantir que a resposta seja natural e atenciosa. Aqui está a consulta: {query}
+    Caso contrário (SÓ VOLTE ISSO SE NÃO FOR CASUAL_CHAT):
+      "Não condiz com a área chat"
+
+weather_task:
+  description: >
+    Fornecer informações meteorológicas atuais e precisas para o local especificado (NO MESMO IDIOMA DE: "{query}") , considerando o contexto {query}.
+    - Se o contexto for "climate": retornar um resumo conciso com dados como temperatura, probabilidade de chuva e previsão para as próximas horas.
+    - Se o contexto for diferente: retornar "Não condiz com a área weather"
+  expected_output: >
+    Se o contexto for "climate", retorne:
+      Um relatório detalhado (NO MESMO IDIOMA DE: "{query}")  do tempo contendo:
+      Temperatura e condições atuais
+      Níveis de umidade
+      Descrição do clima
+      Qualquer alerta de clima extremo
+      Resumo da previsão para os próximos 3 dias
+      As informações devem ser formatadas de maneira clara e fácil de ler.
+      Responder à pergunta do usuário de uma maneira conversacional. Garantir que a resposta sejam precisa, envolventes e adaptadas à consulta do usuário. Aqui está a consulta: {query}
+    Caso contrário (SÓ VOLTE ISSO SE NÃO FOR CLIMATE):
+      "Não condiz com a área weather"
+
+currency_task:
+  description: >
+    Buscar e apresentar a cotação atual das moedas solicitadas (NO MESMO IDIOMA DE: "{query}") , com foco no contexto {query}.
+    - Se o contexto for "currency": retornar taxas de câmbio atualizadas, comparadas a uma moeda de referência (ex.: USD).
+    - Se o contexto for diferente: retornar "Não condiz com a área currency"
+  expected_output: >
+    Se o contexto for "currency":
+    - Retorne uma string (NO MESMO IDIOMA DE: "{query}")  detalhando e explicandoas cotações no contexto do tópico ({query}) pedido.
+    - Responder à pergunta do usuário de uma maneira conversacional. Garantir que a resposta sejam precisa, envolventes e adaptadas à consulta do usuário. Aqui está a consulta: {query}
+    Caso contrário (SÓ VOLTE ISSO SE NÃO FOR CURRENCY):
+    "Não condiz com a área currency"
+
+pdf_reader_task:
+  description: >
+    Verificar se o arquivo PDF existe no caminho {file_path} e extrair seu conteúdo sem qualquer processamento adicional.
+    - Se não houver arquivo PDF, informar que o documento não foi encontrado, de maneira que o pdf_analyzer_agent não confunda como texto integral de um pdf hipotético.
+  expected_output: >
+    Se o contexto for "pdf_analysis":
+    - Retornar o texto completo do documento PDF localizado em {file_path}, sem resumo ou análise, no seguinte formato:
+    { "content": "aqui sendo o texto completo extraido do pdf" }
+    Se não houver arquivo PDF, retornar:
+    { "content": "" }
+
+pdf_analyzer_task:
+  description: >
+    Receber o conteúdo extraído de um documento PDF no formato do json do pdf_reader_task. 
+    Aplicar o contexto {query} para resumir ou extrair informações, do atributo de conteúdo do json recebido, relevantes que foram pedidas (NO MESMO IDIOMA DE: "{query}").
+    - Se o contexto for "pdf_analysis", retornar um resumo das partes mais importantes do documento OU retornar alguma informação que foi pedida no {query}.
+    - Caso contrário, retornar "Não condiz com a área pdf".
+  expected_output: >
+    Se o contexto for "pdf_analysis":
+    - Retornar um resumo ou análise do documento PDF, ou alguma informação específica com base no {query} (NO MESMO IDIOMA DE: "{query}").
+    - Responder à pergunta do usuário de uma maneira conversacional. Garantir que a resposta sejam precisa, envolventes e adaptadas à consulta do usuário. Aqui está a consulta: {query}
+    Caso contrário: "Não condiz com a área pdf".
+
+report_to_user_task:
+  description: >
+    Receber as respostas dos agentes especializados e retornar uma resposta final para o usuário.
+    Regras:
+      1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).
+      2. Se for "climate", retorne a resposta do weather_task.
+      3. Se for "currency", retorne a resposta do currency_task.
+      4. Se for "pdf_analysis", retorne a resposta do pdf_analyzer_task.
+      5. Se for "casual_chat", retorne a resposta do casual_chat_task.
+      6. Se for "no_agent_especialized", retorne "Desculpe, atualmente não somos especializados nessa área que foi pedida".
+      7. Se não encontrar nenhuma resposta válida, retorne "Desculpe, atualmente não somos especializados nessa área que foi pedida".
+  expected_output: >
+    Se o retorno da extract_context_task foi 'climate' ou 'currency' ou 'pdf_analysis' ou 'casual_chat':
+      Retorne uma string contendo a resposta final para o usuário, repassada do respectivo agente que retornou essa resposta.
+      O texto deve ser exatamente o que o agente certo repassou.
+    Se o retorno da extract_context_task foi 'no_agent_especialized':
+      Retorne de maneira conversacional que ainda não somos especializados nessa área, peça outros inputs ou algo do tipo e seja casual e convidativo.

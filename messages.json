@@ -1,0 +1,10 @@
+  "messages": [
+    {
+      "role": "user",
+      "content": "Oi, tudo bem?"
+    },
+    {
+      "role": "assistant",
+      "content": "Tudo certo! Em que posso ajudar?"
+    }
+  ]
