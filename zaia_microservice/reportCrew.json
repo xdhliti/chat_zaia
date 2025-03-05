@@ -1,0 +1,335 @@
+[
+    {
+        "timestamp": "2025-03-05 02:54:58",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Como voc\u00ea esta? Qual seu nome? e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Como voc\u00ea esta? Qual seu nome?) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Verificar se o caminho do arquivo (None) \u00e9 igual a 'None'. Caso positivo, aplicar as regras de categoriza\u00e7\u00e3o, retornando apenas 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized'. 2. Se o caminho do arquivo n\u00e3o for 'None' e o conte\u00fado existir, classificar como 'pdf_analysis'. 3. Construir um JSON de sa\u00edda com a chave 'context' e o valor respectivo, respeitando o formato exigido.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:22",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Como voc\u00ea esta? Qual seu nome? e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Como voc\u00ea esta? Qual seu nome?) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Verificar se o caminho do arquivo (None) \u00e9 igual a 'None'. Caso positivo, aplicar as regras de categoriza\u00e7\u00e3o, retornando apenas 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized'. 2. Se o caminho do arquivo n\u00e3o for 'None' e o conte\u00fado existir, classificar como 'pdf_analysis'. 3. Construir um JSON de sa\u00edda com a chave 'context' e o valor respectivo, respeitando o formato exigido.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "{ \"context\": \"casual_chat\" }\n```"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:22",
+        "task_name": "weather_task",
+        "task": "Fornecer informa\u00e7\u00f5es meteorol\u00f3gicas atuais e precisas para o local especificado (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\") , considerando o contexto Como voc\u00ea esta? Qual seu nome?. - Se o contexto for \"climate\": retornar um resumo conciso com dados como temperatura, probabilidade de chuva e previs\u00e3o para as pr\u00f3ximas horas. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea weather\"\n1. Avaliar o contexto obtido da tarefa anterior. 2. Se o contexto for 'climate', utilizar ferramentas de pesquisa ou scraping para coletar dados meteorol\u00f3gicos atuais, incluindo temperatura, umidade e previs\u00e3o para as pr\u00f3ximas horas. 3. Formatar uma resposta clara que responda \u00e0s demandas do usu\u00e1rio, mantendo a informalidade e adaptando as informa\u00e7\u00f5es ao contexto da pergunta. 4. Retornar os dados em um formato amig\u00e1vel e adequado.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:22",
+        "task_name": "currency_task",
+        "task": "Buscar e apresentar a cota\u00e7\u00e3o atual das moedas solicitadas (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\") , com foco no contexto Como voc\u00ea esta? Qual seu nome?. - Se o contexto for \"currency\": retornar taxas de c\u00e2mbio atualizadas, comparadas a uma moeda de refer\u00eancia (ex.: USD). - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea currency\"\n1. Obter o contexto da tarefa anterior. 2. Se o contexto for 'currency', utilizar a ferramenta de busca para acessar informa\u00e7\u00f5es de c\u00e2mbio em tempo real a partir de fontes confi\u00e1veis. 3. Estruturar uma resposta de acordo com o que foi solicitado, mantendo a conversa\u00e7\u00e3o amig\u00e1vel e assegurando que a informa\u00e7\u00e3o seja precisada e tenha refer\u00eancias confi\u00e1veis, como links para os sites citados. 4. Retornar a informa\u00e7\u00e3o ao usu\u00e1rio no formato adequado.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:22",
+        "task_name": "pdf_reader_task",
+        "task": "Verificar se o arquivo PDF existe no caminho None e extrair seu conte\u00fado sem qualquer processamento adicional. - Se n\u00e3o houver arquivo PDF, informar que o documento n\u00e3o foi encontrado, de maneira que o pdf_analyzer_agent n\u00e3o confunda como texto integral de um pdf hipot\u00e9tico.\n1. Verificar se o arquivo PDF no caminho indicado existe. 2. Caso n\u00e3o exista, retornar uma mensagem que informa que o documento n\u00e3o foi encontrado. 3. Se o PDF existir, usar a ferramenta de leitura de PDF para extrair seu conte\u00fado integralmente, sem qualquer modifica\u00e7\u00e3o ou resumo. 4. Retornar o texto extra\u00eddo no formato correto e indicado.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:22",
+        "task_name": "pdf_analyzer_task",
+        "task": "Receber o conte\u00fado extra\u00eddo de um documento PDF no formato do json do pdf_reader_task.  Aplicar o contexto Como voc\u00ea esta? Qual seu nome? para resumir ou extrair informa\u00e7\u00f5es, do atributo de conte\u00fado do json recebido, relevantes que foram pedidas (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\"). - Se o contexto for \"pdf_analysis\", retornar um resumo das partes mais importantes do documento OU retornar alguma informa\u00e7\u00e3o que foi pedida no Como voc\u00ea esta? Qual seu nome?. - Caso contr\u00e1rio, retornar \"N\u00e3o condiz com a \u00e1rea pdf\".\n1. Receber o JSON contendo o conte\u00fado extra\u00eddo do PDF. 2. Verificar o contexto; se for 'pdf_analysis', elaborar um resumo ou destacar informa\u00e7\u00f5es relevantes seguindo a consulta do usu\u00e1rio. 3. Garantir que a resposta seja informativa e amig\u00e1vel, focando na clareza e exatid\u00e3o. 4. Retornar o resumo ou a informa\u00e7\u00e3o solicitada em formato adequado ao contato.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:22",
+        "task_name": "casual_chat_task",
+        "task": "Lidar com conversas gerais e casuais baseadas no Como voc\u00ea esta? Qual seu nome?, como sauda\u00e7\u00f5es, bate-papo informal e perguntas que n\u00e3o se encaixam em clima, cota\u00e7\u00f5es de moedas ou PDF. - Se o contexto for \"casual_chat\": Retornar uma resposta amig\u00e1vel e natural, continuando a conversa de forma envolvente. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea chat\"\n1. Verificar o contexto anterior; se for 'casual_chat', formular uma resposta que expresse calor e continuidade \u00e0 conversa. 2. Manter o tom leve e amig\u00e1vel, respondendo de maneira envolvente e natural. 3. Retornar a resposta ao usu\u00e1rio, priorizando o engajamento social e evitando respostas gen\u00e9ricas.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:22",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Capturar as respostas dos agentes especializados com base no contexto fornecido. 2. De acordo com as regras, direcionar a resposta correta ao usu\u00e1rio (climate, currency, pdf_analysis ou casual_chat). 3. Se o contexto n\u00e3o corresponder a nenhuma \u00e1rea especializada, retornar uma resposta amig\u00e1vel que informe que n\u00e3o h\u00e1 especializa\u00e7\u00e3o nessa \u00e1rea. 4. Garantir que a resposta final seja clara e atenciosa.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 02:55:54",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Capturar as respostas dos agentes especializados com base no contexto fornecido. 2. De acordo com as regras, direcionar a resposta correta ao usu\u00e1rio (climate, currency, pdf_analysis ou casual_chat). 3. Se o contexto n\u00e3o corresponder a nenhuma \u00e1rea especializada, retornar uma resposta amig\u00e1vel que informe que n\u00e3o h\u00e1 especializa\u00e7\u00e3o nessa \u00e1rea. 4. Garantir que a resposta final seja clara e atenciosa.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida.\n```"
+    },
+    {
+        "timestamp": "2025-03-05 03:28:43",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Como voc\u00ea esta? Qual seu nome? e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Como voc\u00ea esta? Qual seu nome?) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\nO agente Extrator de Contexto deve primeiro verificar o valor de 'None'. Se 'None' for igual a 'None' ou o conte\u00fado ser 'None', o agente deve classificar o contexto como 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized', conforme necess\u00e1rio. Para isso, ele vai usar as perguntas do usu\u00e1rio, que s\u00e3o 'Como voc\u00ea esta?' e 'Qual seu nome?'. Se n\u00e3o houver arquivo PDF, ele ir\u00e1 focar nos outros grupos. Se 'None' n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 definido como 'pdf_analysis'. O agente deve retornar um JSON com a chave 'context' e o valor correspondente ao contexto classificado.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:15",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Como voc\u00ea esta? Qual seu nome? e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Como voc\u00ea esta? Qual seu nome?) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\nO agente Extrator de Contexto deve primeiro verificar o valor de 'None'. Se 'None' for igual a 'None' ou o conte\u00fado ser 'None', o agente deve classificar o contexto como 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized', conforme necess\u00e1rio. Para isso, ele vai usar as perguntas do usu\u00e1rio, que s\u00e3o 'Como voc\u00ea esta?' e 'Qual seu nome?'. Se n\u00e3o houver arquivo PDF, ele ir\u00e1 focar nos outros grupos. Se 'None' n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 definido como 'pdf_analysis'. O agente deve retornar um JSON com a chave 'context' e o valor correspondente ao contexto classificado.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "{ \"context\": \"casual_chat\" }\n```"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:15",
+        "task_name": "weather_task",
+        "task": "Fornecer informa\u00e7\u00f5es meteorol\u00f3gicas atuais e precisas para o local especificado (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\") , considerando o contexto Como voc\u00ea esta? Qual seu nome?. - Se o contexto for \"climate\": retornar um resumo conciso com dados como temperatura, probabilidade de chuva e previs\u00e3o para as pr\u00f3ximas horas. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea weather\"\nO Especialista em Informa\u00e7\u00f5es do Clima deve analisar o contexto retornado pelo agente Extrator de Contexto. Se o contexto for 'climate', ele deve buscar informa\u00e7\u00f5es meteorol\u00f3gicas atuais e precisas. O agente pode utilizar APIs confi\u00e1veis como Weather.com ou AccuWeather para coletar dados como temperatura, umidade e previs\u00e3o de chuva. As informa\u00e7\u00f5es devem ser estruturadas de forma clara e conversacional, andar em formato detalhado, incluindo um resumo da previs\u00e3o para as pr\u00f3ximas horas e os pr\u00f3ximos 3 dias. Se o contexto n\u00e3o for 'climate', o agente deve retornar 'N\u00e3o condiz com a \u00e1rea weather'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:15",
+        "task_name": "currency_task",
+        "task": "Buscar e apresentar a cota\u00e7\u00e3o atual das moedas solicitadas (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\") , com foco no contexto Como voc\u00ea esta? Qual seu nome?. - Se o contexto for \"currency\": retornar taxas de c\u00e2mbio atualizadas, comparadas a uma moeda de refer\u00eancia (ex.: USD). - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea currency\"\nO Especialista em Cota\u00e7\u00f5es de Moedas deve receber o contexto do agente Extrator de Contexto. Se o contexto for 'currency', ele deve buscar taxas de c\u00e2mbio atualizadas usando ferramentas como WebsiteSearchTool ou ScrapeWebsiteTool para acessar sites confi\u00e1veis que forne\u00e7am os dados de cota\u00e7\u00f5es. A resposta deve apresentar as cota\u00e7\u00f5es de maneira clara e detalhada, adequando-se ao contexto de 'Como voc\u00ea esta? Qual seu nome?'. Se o contexto n\u00e3o for 'currency', o agente deve retornar 'N\u00e3o condiz com a \u00e1rea currency'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:15",
+        "task_name": "pdf_reader_task",
+        "task": "Verificar se o arquivo PDF existe no caminho None e extrair seu conte\u00fado sem qualquer processamento adicional. - Se n\u00e3o houver arquivo PDF, informar que o documento n\u00e3o foi encontrado, de maneira que o pdf_analyzer_agent n\u00e3o confunda como texto integral de um pdf hipot\u00e9tico.\nO Leitor de PDFs deve verificar se o caminho de 'None' aponta para um arquivo PDF v\u00e1lido. Se o PDF n\u00e3o existir, o agente deve retornar a informa\u00e7\u00e3o de que 'o documento n\u00e3o foi encontrado' para uma clara comunica\u00e7\u00e3o e para que o pdf_analyzer_agent n\u00e3o confunda a situa\u00e7\u00e3o. Se o arquivo PDF existir, o agente deve extrair seu conte\u00fado sem qualquer modifica\u00e7\u00e3o, retornando no formato: { 'content': 'texto extra\u00eddo do pdf' }.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:15",
+        "task_name": "pdf_analyzer_task",
+        "task": "Receber o conte\u00fado extra\u00eddo de um documento PDF no formato do json do pdf_reader_task.  Aplicar o contexto Como voc\u00ea esta? Qual seu nome? para resumir ou extrair informa\u00e7\u00f5es, do atributo de conte\u00fado do json recebido, relevantes que foram pedidas (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\"). - Se o contexto for \"pdf_analysis\", retornar um resumo das partes mais importantes do documento OU retornar alguma informa\u00e7\u00e3o que foi pedida no Como voc\u00ea esta? Qual seu nome?. - Caso contr\u00e1rio, retornar \"N\u00e3o condiz com a \u00e1rea pdf\".\nO Analista de PDFs receber\u00e1 o conte\u00fado extra\u00eddo do Leitor de PDFs e aplicar\u00e1 o contexto definido anteriormente. Se o contexto for 'pdf_analysis', o agente deve produzir um resumo detalhado ou uma an\u00e1lise das partes mais importantes com base no conte\u00fado do PDF. A resposta deve ser clara e adequada \u00e0 pergunta do usu\u00e1rio, mantendo a conversa relacionada a 'Como voc\u00ea esta? Qual seu nome?'. Caso o contexto n\u00e3o seja 'pdf_analysis', o agente deve retornar 'N\u00e3o condiz com a \u00e1rea pdf'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:15",
+        "task_name": "casual_chat_task",
+        "task": "Lidar com conversas gerais e casuais baseadas no Como voc\u00ea esta? Qual seu nome?, como sauda\u00e7\u00f5es, bate-papo informal e perguntas que n\u00e3o se encaixam em clima, cota\u00e7\u00f5es de moedas ou PDF. - Se o contexto for \"casual_chat\": Retornar uma resposta amig\u00e1vel e natural, continuando a conversa de forma envolvente. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea chat\"\nO Especialista em Conversas Gerais deve receber o contexto do agente Extrator de Contexto. Se o contexto for 'casual_chat', ele deve formular uma resposta amig\u00e1vel e natural que continue a conversa e envolva o usu\u00e1rio. Deve ter um tom leve e caloroso, respondendo \u00e0s perguntas de maneira interpessoal e atenciosa. Se o contexto n\u00e3o for 'casual_chat', deve retornar 'N\u00e3o condiz com a \u00e1rea chat'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:15",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\nO Repassador de Respostas deve coletar as respostas dos agentes para cada contexto identificado. Ele ir\u00e1 verificar qual o contexto \u00e9 e, de acordo com as regras, dever\u00e1 retornar a resposta apropriada: para 'climate', 'currency', 'pdf_analysis' ou 'casual_chat'. Se o contexto for 'no_agent_especialized', deve dizer que n\u00e3o h\u00e1 especializa\u00e7\u00e3o na \u00e1rea solicitada. Caso nenhum agente retorne uma resposta v\u00e1lida, manejar a situa\u00e7\u00e3o de uma forma amig\u00e1vel e aberta, pedindo outros inputs ao usu\u00e1rio.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:29:47",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\nO Repassador de Respostas deve coletar as respostas dos agentes para cada contexto identificado. Ele ir\u00e1 verificar qual o contexto \u00e9 e, de acordo com as regras, dever\u00e1 retornar a resposta apropriada: para 'climate', 'currency', 'pdf_analysis' ou 'casual_chat'. Se o contexto for 'no_agent_especialized', deve dizer que n\u00e3o h\u00e1 especializa\u00e7\u00e3o na \u00e1rea solicitada. Caso nenhum agente retorne uma resposta v\u00e1lida, manejar a situa\u00e7\u00e3o de uma forma amig\u00e1vel e aberta, pedindo outros inputs ao usu\u00e1rio.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "Oi! Como voc\u00ea est\u00e1? Alguma novidade boa? Eu estou sempre por aqui, pronto para bater um papo ou ajudar com qualquer coisa que voc\u00ea precisar!\n```"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:02",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Como voc\u00ea esta? Qual seu nome? e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Como voc\u00ea esta? Qual seu nome?) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Verificar o valor de 'None'. 2. Se 'None' for 'None' ou o conte\u00fado for 'None', classificar o contexto como 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized'. 3. Se o conte\u00fado existir e 'None' n\u00e3o for 'None', definir o contexto como 'pdf_analysis'. 4. Retornar o contexto extra\u00eddo em formato JSON, seguindo o modelo { 'context': '<context>' }.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:50",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Como voc\u00ea esta? Qual seu nome? e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Como voc\u00ea esta? Qual seu nome?) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Verificar o valor de 'None'. 2. Se 'None' for 'None' ou o conte\u00fado for 'None', classificar o contexto como 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized'. 3. Se o conte\u00fado existir e 'None' n\u00e3o for 'None', definir o contexto como 'pdf_analysis'. 4. Retornar o contexto extra\u00eddo em formato JSON, seguindo o modelo { 'context': '<context>' }.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "{ \"context\": \"casual_chat\" }\n```"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:50",
+        "task_name": "weather_task",
+        "task": "Fornecer informa\u00e7\u00f5es meteorol\u00f3gicas atuais e precisas para o local especificado (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\") , considerando o contexto Como voc\u00ea esta? Qual seu nome?. - Se o contexto for \"climate\": retornar um resumo conciso com dados como temperatura, probabilidade de chuva e previs\u00e3o para as pr\u00f3ximas horas. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea weather\"\n1. Verificar se o contexto recebido \u00e9 'climate'. 2. Caso o contexto seja 'climate', coletar as informa\u00e7\u00f5es meteorol\u00f3gicas utilizando as ferramentas de scraping em fontes confi\u00e1veis, como Weather.com ou AccuWeather. 3. Extrair a temperatura atual, umidade, descri\u00e7\u00e3o do clima e qualquer alerta meteorol\u00f3gico. 4. Preparar um resumo da previs\u00e3o do tempo para as pr\u00f3ximas horas e dos pr\u00f3ximas tr\u00eas dias. 5. Retornar estas informa\u00e7\u00f5es de forma clara e em formato natural, seguindo a estrutura solicitada.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:50",
+        "task_name": "currency_task",
+        "task": "Buscar e apresentar a cota\u00e7\u00e3o atual das moedas solicitadas (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\") , com foco no contexto Como voc\u00ea esta? Qual seu nome?. - Se o contexto for \"currency\": retornar taxas de c\u00e2mbio atualizadas, comparadas a uma moeda de refer\u00eancia (ex.: USD). - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea currency\"\n1. Verificar se o contexto recebido \u00e9 'currency'. 2. Se for, utilizar as ferramentas para coletar taxas de c\u00e2mbio atuais de sites como Investing.com ou Banco Central do Brasil. 3. Comparar as cota\u00e7\u00f5es em rela\u00e7\u00e3o a uma moeda de refer\u00eancia. 4. Elaborar um relat\u00f3rio detalhado e claro sobre cota\u00e7\u00f5es, com as explica\u00e7\u00f5es necess\u00e1rias. 5. Retornar a informa\u00e7\u00e3o com um formato conversacional, seguindo a consulta fornecida.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:50",
+        "task_name": "pdf_reader_task",
+        "task": "Verificar se o arquivo PDF existe no caminho None e extrair seu conte\u00fado sem qualquer processamento adicional. - Se n\u00e3o houver arquivo PDF, informar que o documento n\u00e3o foi encontrado, de maneira que o pdf_analyzer_agent n\u00e3o confunda como texto integral de um pdf hipot\u00e9tico.\n1. Verificar a exist\u00eancia do arquivo PDF no caminho especificado. 2. Se o arquivo PDF n\u00e3o existir, retornar a mensagem que informa a aus\u00eancia do documento. 3. Se o arquivo existir, utilizar a ferramenta de leitura de PDF para extrair o conte\u00fado completo. 4. Retornar o conte\u00fado em formato JSON no modelo { 'content': '<texto extra\u00eddo>' }.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:50",
+        "task_name": "pdf_analyzer_task",
+        "task": "Receber o conte\u00fado extra\u00eddo de um documento PDF no formato do json do pdf_reader_task.  Aplicar o contexto Como voc\u00ea esta? Qual seu nome? para resumir ou extrair informa\u00e7\u00f5es, do atributo de conte\u00fado do json recebido, relevantes que foram pedidas (NO MESMO IDIOMA DE: \"Como voc\u00ea esta? Qual seu nome?\"). - Se o contexto for \"pdf_analysis\", retornar um resumo das partes mais importantes do documento OU retornar alguma informa\u00e7\u00e3o que foi pedida no Como voc\u00ea esta? Qual seu nome?. - Caso contr\u00e1rio, retornar \"N\u00e3o condiz com a \u00e1rea pdf\".\n1. Receber o JSON de conte\u00fado do PDF. 2. Verificar se o contexto \u00e9 'pdf_analysis'. 3. Se for, resumir ou extrair as informa\u00e7\u00f5es relevantes do conte\u00fado do PDF, em resposta \u00e0 consulta 'Como voc\u00ea esta? Qual seu nome?'. 4. Estar atento aos detalhes importantes e garantir que o resumo esteja claro e preciso. 5. Retornar a resposta de maneira conversacional ao usu\u00e1rio, conforme solicitado.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:50",
+        "task_name": "casual_chat_task",
+        "task": "Lidar com conversas gerais e casuais baseadas no Como voc\u00ea esta? Qual seu nome?, como sauda\u00e7\u00f5es, bate-papo informal e perguntas que n\u00e3o se encaixam em clima, cota\u00e7\u00f5es de moedas ou PDF. - Se o contexto for \"casual_chat\": Retornar uma resposta amig\u00e1vel e natural, continuando a conversa de forma envolvente. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea chat\"\n1. Verificar se o contexto \u00e9 'casual_chat'. 2. Se for, formular uma resposta amig\u00e1vel e natural, abordando as perguntas do usu\u00e1rio. 3. Assegurar que a conversa flua de forma envolvente e calorosa. 4. Retornar a resposta de forma conversacional, sistematizando a intera\u00e7\u00e3o de forma que pare\u00e7a natural e social.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:56:50",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Obter as respostas dos agentes consoante ao contexto extra\u00eddo da tarefa anterior. 2. Se o contexto for 'climate', usar a resposta do agente de clima; se for 'currency', usar a resposta do agente de c\u00e2mbio; se for 'pdf_analysis', usar a resposta do analista de PDFs; se for 'casual_chat', usar a resposta do especialista em conversas gerais. 3. Caso o agente n\u00e3o consiga fornecer informa\u00e7\u00e3o v\u00e1lida, retornar uma mensagem amig\u00e1vel informando que n\u00e3o somos especializados na \u00e1rea. 4. Assegurar que a resposta final representa precisamente a contribui\u00e7\u00e3o do agente espec\u00edfico.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:57:34",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Obter as respostas dos agentes consoante ao contexto extra\u00eddo da tarefa anterior. 2. Se o contexto for 'climate', usar a resposta do agente de clima; se for 'currency', usar a resposta do agente de c\u00e2mbio; se for 'pdf_analysis', usar a resposta do analista de PDFs; se for 'casual_chat', usar a resposta do especialista em conversas gerais. 3. Caso o agente n\u00e3o consiga fornecer informa\u00e7\u00e3o v\u00e1lida, retornar uma mensagem amig\u00e1vel informando que n\u00e3o somos especializados na \u00e1rea. 4. Assegurar que a resposta final representa precisamente a contribui\u00e7\u00e3o do agente espec\u00edfico.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "Oi! Como voc\u00ea est\u00e1? Estou sempre aqui para um bate-papo ou para ajudar no que precisar. Se voc\u00ea tiver alguma d\u00favida ou apenas quiser conversar sobre algo legal, estou \u00e0 disposi\u00e7\u00e3o!\n```"
+    },
+    {
+        "timestamp": "2025-03-05 03:58:32",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Eu tinha perguntado qual seu nome e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Eu tinha perguntado qual seu nome) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Receber a entrada do usu\u00e1rio \"Eu tinha perguntado qual seu nome\" e verificar o caminho do arquivo, que \u00e9 'None'. 2. Como o caminho do arquivo \u00e9 'None', classificar o contexto como 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized'. 3. Neste caso, o contexto deve ser classificado como 'casual_chat' porque a pergunta n\u00e3o se encaixa nas outras categorias. 4. Retornar um JSON no formato esperado: { 'context': 'casual_chat' }.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:03",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Eu tinha perguntado qual seu nome e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Eu tinha perguntado qual seu nome) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Receber a entrada do usu\u00e1rio \"Eu tinha perguntado qual seu nome\" e verificar o caminho do arquivo, que \u00e9 'None'. 2. Como o caminho do arquivo \u00e9 'None', classificar o contexto como 'climate', 'currency', 'casual_chat' ou 'no_agent_especialized'. 3. Neste caso, o contexto deve ser classificado como 'casual_chat' porque a pergunta n\u00e3o se encaixa nas outras categorias. 4. Retornar um JSON no formato esperado: { 'context': 'casual_chat' }.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "{ \"context\": \"casual_chat\" }\n```"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:03",
+        "task_name": "weather_task",
+        "task": "Fornecer informa\u00e7\u00f5es meteorol\u00f3gicas atuais e precisas para o local especificado (NO MESMO IDIOMA DE: \"Eu tinha perguntado qual seu nome\") , considerando o contexto Eu tinha perguntado qual seu nome. - Se o contexto for \"climate\": retornar um resumo conciso com dados como temperatura, probabilidade de chuva e previs\u00e3o para as pr\u00f3ximas horas. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea weather\"\n1. Receber o contexto da Task Number 1, que foi classificado como 'casual_chat'. 2. Como o contexto n\u00e3o \u00e9 'climate', concluir que n\u00e3o possui informa\u00e7\u00f5es meteorol\u00f3gicas a serem fornecidas. 3. Retornar a mensagem 'N\u00e3o condiz com a \u00e1rea weather'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:03",
+        "task_name": "currency_task",
+        "task": "Buscar e apresentar a cota\u00e7\u00e3o atual das moedas solicitadas (NO MESMO IDIOMA DE: \"Eu tinha perguntado qual seu nome\") , com foco no contexto Eu tinha perguntado qual seu nome. - Se o contexto for \"currency\": retornar taxas de c\u00e2mbio atualizadas, comparadas a uma moeda de refer\u00eancia (ex.: USD). - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea currency\"\n1. Novamente, receber o contexto da Task Number 1, que \u00e9 'casual_chat'. 2. Como o contexto n\u00e3o \u00e9 'currency', concluir que n\u00e3o possui cota\u00e7\u00f5es de moedas a serem fornecidas. 3. Retornar a mensagem 'N\u00e3o condiz com a \u00e1rea currency'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:03",
+        "task_name": "pdf_reader_task",
+        "task": "Verificar se o arquivo PDF existe no caminho None e extrair seu conte\u00fado sem qualquer processamento adicional. - Se n\u00e3o houver arquivo PDF, informar que o documento n\u00e3o foi encontrado, de maneira que o pdf_analyzer_agent n\u00e3o confunda como texto integral de um pdf hipot\u00e9tico.\n1. Verificar o caminho do arquivo que \u00e9 'None'. 2. Como o arquivo n\u00e3o existe, identificar que n\u00e3o h\u00e1 PDF para ler. 3. Retornar a mensagem indicando que o documento n\u00e3o foi encontrado, que dever\u00e1 ser no formato: { \"content\": \"\" }.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:03",
+        "task_name": "pdf_analyzer_task",
+        "task": "Receber o conte\u00fado extra\u00eddo de um documento PDF no formato do json do pdf_reader_task.  Aplicar o contexto Eu tinha perguntado qual seu nome para resumir ou extrair informa\u00e7\u00f5es, do atributo de conte\u00fado do json recebido, relevantes que foram pedidas (NO MESMO IDIOMA DE: \"Eu tinha perguntado qual seu nome\"). - Se o contexto for \"pdf_analysis\", retornar um resumo das partes mais importantes do documento OU retornar alguma informa\u00e7\u00e3o que foi pedida no Eu tinha perguntado qual seu nome. - Caso contr\u00e1rio, retornar \"N\u00e3o condiz com a \u00e1rea pdf\".\n1. Receber o conte\u00fado do PDF que foi verificado na Task Number 4. 2. Como n\u00e3o existe conte\u00fado PDF extra\u00eddo a partir do contexto 'pd_analysis' (nenhum PDF foi encontrado), retornar a mensagem 'N\u00e3o condiz com a \u00e1rea pdf'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:03",
+        "task_name": "casual_chat_task",
+        "task": "Lidar com conversas gerais e casuais baseadas no Eu tinha perguntado qual seu nome, como sauda\u00e7\u00f5es, bate-papo informal e perguntas que n\u00e3o se encaixam em clima, cota\u00e7\u00f5es de moedas ou PDF. - Se o contexto for \"casual_chat\": Retornar uma resposta amig\u00e1vel e natural, continuando a conversa de forma envolvente. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea chat\"\n1. Com base no contexto 'casual_chat', criar uma resposta amig\u00e1vel e natural a partir da pergunta do usu\u00e1rio: 'Eu tinha perguntado qual seu nome'. 2. Responder de maneira conversacional, garantindo que a resposta seja envolvente e calorosa, como 'Oi! Meu nome \u00e9 Assistente, e estou aqui para ajudar voc\u00ea!'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:03",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Analisar as respostas recebidas de todas as tarefas anteriores. 2. Identificar que o contexto \u00e9 'casual_chat'. 3. Retornar a resposta gerada na Task Number 6, que \u00e9 a resposta do agente especializado. 4. Garantir que a mensagem final ao usu\u00e1rio seja amig\u00e1vel e natural.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 03:59:41",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Analisar as respostas recebidas de todas as tarefas anteriores. 2. Identificar que o contexto \u00e9 'casual_chat'. 3. Retornar a resposta gerada na Task Number 6, que \u00e9 a resposta do agente especializado. 4. Garantir que a mensagem final ao usu\u00e1rio seja amig\u00e1vel e natural.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "Sempre dispon\u00edvel para um bate-papo ou para ajudar com perguntas! Estou aqui para discutir t\u00f3picos interessantes, ent\u00e3o sinta-se \u00e0 vontade para compartilhar o que est\u00e1 em sua mente!\n```"
+    },
+    {
+        "timestamp": "2025-03-05 05:58:57",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Qual o clima da \u00cdndia e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Qual o clima da \u00cdndia) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Receber a solicita\u00e7\u00e3o do usu\u00e1rio 'Qual o clima da \u00cdndia' e o caminho do arquivo que \u00e9 'None'.\n2. Verificar se o valor do caminho do arquivo \u00e9 'None'. Como \u00e9, proceder para a pr\u00f3xima verifica\u00e7\u00e3o.\n3. Avaliar se o conte\u00fado \u00e9 'None' como mencionado, j\u00e1 que n\u00e3o h\u00e1 arquivo PDF para analisar.\n4. De acordo com as regras estabelecidas, classificar o contexto como 'climate', porque a consulta se refere ao clima e n\u00e3o se encaixa nos outros tipos ('currency', 'pdf_analysis', 'casual_chat' ou 'no_agent_especialized').\n5. Retornar um JSON no formato: { \"context\": \"climate\" }.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 06:00:05",
+        "task_name": "extract_context_task",
+        "task": "Extrair o contexto da solicita\u00e7\u00e3o do usu\u00e1rio com base no t\u00f3pico Qual o clima da \u00cdndia e no caminho do arquivo None. Retornar com QUAL \u00e1rea CONDIZ:\n  - Se None for 'None' ou o conte\u00fado for 'None', o contexto n\u00e3o pode ser PDF e deve ser classificado apenas como \"climate\", \"currency\", \"casual_chat\" ou \"no_agent_especialized\".\n  - Se None n\u00e3o for 'None' e o conte\u00fado existir, o contexto ser\u00e1 \"pdf_analysis\".\nO contexto deve ser definido em um dos seguintes grupos: climate, currency, pdf_analysis, casual_chat ou no_agent_especialized. O contexto s\u00f3 \u00e9 definido como no_agent_especialized se o query (Qual o clima da \u00cdndia) n\u00e3o se encaixar em climate, currency, pdf_analysis ou casual_chat.\n1. Receber a solicita\u00e7\u00e3o do usu\u00e1rio 'Qual o clima da \u00cdndia' e o caminho do arquivo que \u00e9 'None'.\n2. Verificar se o valor do caminho do arquivo \u00e9 'None'. Como \u00e9, proceder para a pr\u00f3xima verifica\u00e7\u00e3o.\n3. Avaliar se o conte\u00fado \u00e9 'None' como mencionado, j\u00e1 que n\u00e3o h\u00e1 arquivo PDF para analisar.\n4. De acordo com as regras estabelecidas, classificar o contexto como 'climate', porque a consulta se refere ao clima e n\u00e3o se encaixa nos outros tipos ('currency', 'pdf_analysis', 'casual_chat' ou 'no_agent_especialized').\n5. Retornar um JSON no formato: { \"context\": \"climate\" }.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "{ \"context\": \"climate\" }\n```"
+    },
+    {
+        "timestamp": "2025-03-05 06:00:05",
+        "task_name": "weather_task",
+        "task": "Fornecer informa\u00e7\u00f5es meteorol\u00f3gicas atuais e precisas para o local especificado (NO MESMO IDIOMA DE: \"Qual o clima da \u00cdndia\") , considerando o contexto Qual o clima da \u00cdndia. - Se o contexto for \"climate\": retornar um resumo conciso com dados como temperatura, probabilidade de chuva e previs\u00e3o para as pr\u00f3ximas horas. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea weather\"\n1. Receber o contexto 'climate' a partir da extra\u00e7\u00e3o anterior.\n2. Utilizar as ferramentas dispon\u00edveis para coletar informa\u00e7\u00f5es meteorol\u00f3gicas atuais na \u00cdndia, como API de clima ou scraping de sites como Weather.com ou AccuWeather.\n3. Coletar dados como temperatura, umidade, probabilidade de chuva e previs\u00f5es futuras.\n4. Estruturar a resposta em formato claro e acess\u00edvel com todos os detalhes relevantes.\n5. Escrever a resposta em um tom conversacional, refletindo a consulta sobre 'Qual o clima da \u00cdndia' com as informa\u00e7\u00f5es coletadas.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 06:02:06",
+        "task_name": "weather_task",
+        "task": "Fornecer informa\u00e7\u00f5es meteorol\u00f3gicas atuais e precisas para o local especificado (NO MESMO IDIOMA DE: \"Qual o clima da \u00cdndia\") , considerando o contexto Qual o clima da \u00cdndia. - Se o contexto for \"climate\": retornar um resumo conciso com dados como temperatura, probabilidade de chuva e previs\u00e3o para as pr\u00f3ximas horas. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea weather\"\n1. Receber o contexto 'climate' a partir da extra\u00e7\u00e3o anterior.\n2. Utilizar as ferramentas dispon\u00edveis para coletar informa\u00e7\u00f5es meteorol\u00f3gicas atuais na \u00cdndia, como API de clima ou scraping de sites como Weather.com ou AccuWeather.\n3. Coletar dados como temperatura, umidade, probabilidade de chuva e previs\u00f5es futuras.\n4. Estruturar a resposta em formato claro e acess\u00edvel com todos os detalhes relevantes.\n5. Escrever a resposta em um tom conversacional, refletindo a consulta sobre 'Qual o clima da \u00cdndia' com as informa\u00e7\u00f5es coletadas.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "Ol\u00e1! Atualmente, o clima na \u00cdndia est\u00e1 variado conforme a regi\u00e3o. Em termos gerais, as temperaturas oscilam entre 17\u00b0C e 28\u00b0C, com altos n\u00edveis de umidade, principalmente em regi\u00f5es costeiras, chegando a 90% em algumas \u00e1reas. O tempo est\u00e1 nublado com probabilidades de chuva em certas regi\u00f5es.\n\n**Alertas de Clima Extremo:**\nExistem alertas para tempestades e ventos fortes em alguns estados do sul. Recomendo ficar atento a canais de not\u00edcias locais ou alertas meteorol\u00f3gicos para atualiza\u00e7\u00f5es.\n\n**Previs\u00e3o para os Pr\u00f3ximos 3 Dias:**\n- **Dia 1:** C\u00e9u nublado, temperaturas entre 26\u00b0C (m\u00e1xima) e 20\u00b0C (m\u00ednima), com 70% de chance de chuva.\n- **Dia 2:** Condi\u00e7\u00f5es parcialmente nubladas, com temperaturas variando entre 25\u00b0C e 19\u00b0C. A probabilidade de chuva reduz para 40%.\n- **Dia 3:** C\u00e9u geralmente claro, com temperaturas chegando a 28\u00b0C e m\u00ednima de 21\u00b0C, praticamente sem chances de chuva.\n\nPara detalhes mais aprofundados e atualiza\u00e7\u00f5es, consulte fontes como [AccuWeather](https://www.accuweather.com/en/in/india-weather) ou [Weather.com](https://weather.com/) para previs\u00f5es locais.\n```"
+    },
+    {
+        "timestamp": "2025-03-05 06:02:06",
+        "task_name": "currency_task",
+        "task": "Buscar e apresentar a cota\u00e7\u00e3o atual das moedas solicitadas (NO MESMO IDIOMA DE: \"Qual o clima da \u00cdndia\") , com foco no contexto Qual o clima da \u00cdndia. - Se o contexto for \"currency\": retornar taxas de c\u00e2mbio atualizadas, comparadas a uma moeda de refer\u00eancia (ex.: USD). - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea currency\"\n1. Receber o contexto, que n\u00e3o \u00e9 'currency' de acordo com a tarefa anterior em rela\u00e7\u00e3o ao clima.\n2. Retornar 'N\u00e3o condiz com a \u00e1rea currency', pois o contexto n\u00e3o est\u00e1 alinhado com cota\u00e7\u00f5es de moedas.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 06:02:06",
+        "task_name": "pdf_reader_task",
+        "task": "Verificar se o arquivo PDF existe no caminho None e extrair seu conte\u00fado sem qualquer processamento adicional. - Se n\u00e3o houver arquivo PDF, informar que o documento n\u00e3o foi encontrado, de maneira que o pdf_analyzer_agent n\u00e3o confunda como texto integral de um pdf hipot\u00e9tico.\n1. Checar se existe um PDF no caminho especificado, que \u00e9 'None'. \n2. Como n\u00e3o existe PDF, retornar um JSON indicando que o documento n\u00e3o foi encontrado: { \"content\": \"\" }.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 06:02:06",
+        "task_name": "pdf_analyzer_task",
+        "task": "Receber o conte\u00fado extra\u00eddo de um documento PDF no formato do json do pdf_reader_task.  Aplicar o contexto Qual o clima da \u00cdndia para resumir ou extrair informa\u00e7\u00f5es, do atributo de conte\u00fado do json recebido, relevantes que foram pedidas (NO MESMO IDIOMA DE: \"Qual o clima da \u00cdndia\"). - Se o contexto for \"pdf_analysis\", retornar um resumo das partes mais importantes do documento OU retornar alguma informa\u00e7\u00e3o que foi pedida no Qual o clima da \u00cdndia. - Caso contr\u00e1rio, retornar \"N\u00e3o condiz com a \u00e1rea pdf\".\n1. Receber conte\u00fado em JSON do PDF tendo verificado que n\u00e3o existe um PDF anteriormente.\n2. Como n\u00e3o existe conte\u00fado relevante trazendo 'pdf_analysis', retornar: 'N\u00e3o condiz com a \u00e1rea pdf'.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 06:02:06",
+        "task_name": "casual_chat_task",
+        "task": "Lidar com conversas gerais e casuais baseadas no Qual o clima da \u00cdndia, como sauda\u00e7\u00f5es, bate-papo informal e perguntas que n\u00e3o se encaixam em clima, cota\u00e7\u00f5es de moedas ou PDF. - Se o contexto for \"casual_chat\": Retornar uma resposta amig\u00e1vel e natural, continuando a conversa de forma envolvente. - Se o contexto for diferente: retornar \"N\u00e3o condiz com a \u00e1rea chat\"\n1. Determinar que a consulta est\u00e1 relacionada a clima e n\u00e3o a um bate-papo casual.\n2. Retornar 'N\u00e3o condiz com a \u00e1rea chat', j\u00e1 que o contexto n\u00e3o est\u00e1 alinhado com conversas casuais.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 06:02:06",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Coletar respostas dos agentes, iniciando com o contexto extra\u00eddo de Task Number 1.\n2. Como o contexto \u00e9 'climate', utilizar a resposta do agente de clima obtida na Task Number 2.\n3. Se a resposta for v\u00e1lida, repass\u00e1-la ao usu\u00e1rio; caso contr\u00e1rio, investigar outras \u00e1reas ou especifica\u00e7\u00f5es.\n4. Finalizar garantindo que a comunica\u00e7\u00e3o continua e amig\u00e1vel com o usu\u00e1rio.",
+        "agent": "Crew Manager",
+        "status": "started"
+    },
+    {
+        "timestamp": "2025-03-05 06:03:01",
+        "task_name": "report_to_user_task",
+        "task": "Receber as respostas dos agentes especializados e retornar uma resposta final para o usu\u00e1rio. Regras:\n  1. Pegue o contexto da extract_context_task (climate, currency, pdf_analysis, casual_chat ou no_agent_especialized).\n  2. Se for \"climate\", retorne a resposta do weather_task.\n  3. Se for \"currency\", retorne a resposta do currency_task.\n  4. Se for \"pdf_analysis\", retorne a resposta do pdf_analyzer_task.\n  5. Se for \"casual_chat\", retorne a resposta do casual_chat_task.\n  6. Se for \"no_agent_especialized\", retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n  7. Se n\u00e3o encontrar nenhuma resposta v\u00e1lida, retorne \"Desculpe, atualmente n\u00e3o somos especializados nessa \u00e1rea que foi pedida\".\n1. Coletar respostas dos agentes, iniciando com o contexto extra\u00eddo de Task Number 1.\n2. Como o contexto \u00e9 'climate', utilizar a resposta do agente de clima obtida na Task Number 2.\n3. Se a resposta for v\u00e1lida, repass\u00e1-la ao usu\u00e1rio; caso contr\u00e1rio, investigar outras \u00e1reas ou especifica\u00e7\u00f5es.\n4. Finalizar garantindo que a comunica\u00e7\u00e3o continua e amig\u00e1vel com o usu\u00e1rio.",
+        "agent": "Crew Manager",
+        "status": "completed",
+        "output": "Ol\u00e1! Atualmente, o clima na \u00cdndia est\u00e1 variado conforme a regi\u00e3o. Em termos gerais, as temperaturas oscilam entre 17\u00b0C e 28\u00b0C, com altos n\u00edveis de umidade, principalmente em regi\u00f5es costeiras, chegando a 90% em algumas \u00e1reas. O tempo est\u00e1 nublado com probabilidades de chuva em certas regi\u00f5es.\n\n**Alertas de Clima Extremo:**\nExistem alertas para tempestades e ventos fortes em alguns estados do sul. Recomendo ficar atento a canais de not\u00edcias locais ou alertas meteorol\u00f3gicos para atualiza\u00e7\u00f5es.\n\n**Previs\u00e3o para os Pr\u00f3ximos 3 Dias:**\n- **Dia 1:** C\u00e9u nublado, temperaturas entre 26\u00b0C (m\u00e1xima) e 20\u00b0C (m\u00ednima), com 70% de chance de chuva.\n- **Dia 2:** Condi\u00e7\u00f5es parcialmente nubladas, com temperaturas variando entre 25\u00b0C e 19\u00b0C. A probabilidade de chuva reduz para 40%.\n- **Dia 3:** C\u00e9u geralmente claro, com temperaturas chegando a 28\u00b0C e m\u00ednima de 21\u00b0C, praticamente sem chances de chuva.\n\nPara detalhes mais aprofundados e atualiza\u00e7\u00f5es, consulte fontes como [AccuWeather](https://www.accuweather.com/en/in/india-weather) ou [Weather.com](https://weather.com/) para previs\u00f5es locais.\n```"
+    }
+]

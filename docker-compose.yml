@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - microservice
+    environment:
+      - NODE_ENV=production
+      # outras variáveis que seu backend precise
+
+  microservice:
+    build:
+      context: ./zaia_microservice
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - MEM0_API_KEY=${MEM0_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - MODEL=${MODEL}
+      - SERPER_API_KEY=${SERPER_API_KEY}
+
+networks:
+  default:
+    driver: bridge
